@@ -1,0 +1,107 @@
+import speech_recognition as sr
+import webbrowser
+import pyttsx3
+import datetime
+import wikipedia
+import os
+
+engine = pyttsx3.init("sapi5")
+voices = engine.getProperty("voices")
+engine.setProperty('voice', voices[0].id)
+
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+
+def wishme():
+    hour = int(datetime.datetime.now().hour)
+    if hour>=1 and hour<12:
+        speak("Good Morning sir ....!")
+        print("jarvis: Good Morning sir ....!")
+
+    elif hour>=12 and hour<18:
+        speak("Good Afternoon sir....!")
+        print("Jarvis: Good Afternon Sir....!")
+
+    else:
+        speak("Good Evening....!")
+        print("Jarvis: Good Evening....!")
+
+    speak("I am Jarvis sir waht may i help you...!")
+
+def takeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        r.pause_threshold = 1
+        audio = r.listen(source)
+
+    try:
+        print("Recognizing...")
+        query = r.recognize_google(audio, language='en-in')  # Using google for voice recognition.
+        print(f"User said: {query}\n")  # User query will be printed.
+
+    except Exception as e:
+        print("Say that again please...")  # Say that again will be printed in case of improper voice
+        return "None"  # None string will be returned
+    return query
+if __name__ == '__main__':
+    wishme()
+    while True:
+        query = takeCommand().lower()
+        if 'wikipedia' in query:
+            speak('Searching Wikipedia')
+            query = query.replace('wikipedia', "")
+            results = wikipedia.summary(query, sentences=2)
+            speak('According to wikipedia')
+            print(results)
+            speak(results)
+
+        elif "open 11th admission" in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            webbrowser.open_new("https://11thadmission.org.in/")
+
+        elif "open typing practice" in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            webbrowser.open_new("https://10fastfingers.com/")
+
+        elif 'time' in query:
+            strtime = datetime.datetime.now().strftime("%H:%M:%S")
+            print(strtime)
+            speak(f"Sir, the time is {strtime}")
+
+        elif "quit" in query:
+            speak("Quitting sir thanks for you time")
+            print("Quitting sir thanks for you time")
+            exit()
+
+        elif "open typing race" in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            webbrowser.open_new('https://play.typeracer.com/')
+
+        elif "open code" in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            codepath = "C:\\Users\\MUHSIN\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+            os.startfile(codepath)
+
+        elif 'open youtube' in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            webbrowser.open_new('https://www.youtube.com/feed/library')
+
+        elif 'open nox' in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            noxpath = "C:\\Program Files (x86)\\Nox\\bin\\MultiPlayerManager.exe"
+            os.startfile(noxpath)
+
+        elif 'open github' in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            webbrowser.open_new("https://github.com/AhamedMuhsin")
+
+
