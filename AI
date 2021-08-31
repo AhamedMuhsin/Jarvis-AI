@@ -1,3 +1,4 @@
+# Importing module use in this game 
 import speech_recognition as sr
 import webbrowser
 import pyttsx3
@@ -5,6 +6,7 @@ import datetime
 import wikipedia
 import os
 
+# maked speak function
 engine = pyttsx3.init("sapi5")
 voices = engine.getProperty("voices")
 engine.setProperty('voice', voices[0].id)
@@ -13,6 +15,7 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
+# Make greeting funtion
 def wishme():
     hour = int(datetime.datetime.now().hour)
     if hour>=1 and hour<12:
@@ -29,6 +32,7 @@ def wishme():
 
     speak("I am Jarvis sir waht may i help you...!")
 
+# making a microphone to take command for user
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -45,10 +49,14 @@ def takeCommand():
         print("Say that again please...")  # Say that again will be printed in case of improper voice
         return "None"  # None string will be returned
     return query
+# main function
 if __name__ == '__main__':
+
     wishme()
     while True:
         query = takeCommand().lower()
+        
+        # if user say wikpedia 
         if 'wikipedia' in query:
             speak('Searching Wikipedia')
             query = query.replace('wikipedia', "")
@@ -57,48 +65,60 @@ if __name__ == '__main__':
             print(results)
             speak(results)
 
-        elif "open 11th admission" in query:
-            print("Sir her is your result")
-            speak("Sir her is your result")
-            webbrowser.open_new("https://11thadmission.org.in/")
-
+# command for open typing practice
         elif "open typing practice" in query:
             print("Sir her is your result")
             speak("Sir her is your result")
             webbrowser.open_new("https://10fastfingers.com/")
-
+            
+# command for aksing time
         elif 'time' in query:
             strtime = datetime.datetime.now().strftime("%H:%M:%S")
             print(strtime)
             speak(f"Sir, the time is {strtime}")
-
+            
+# command for exit the program
         elif "quit" in query:
             speak("Quitting sir thanks for you time")
             print("Quitting sir thanks for you time")
             exit()
-
+            
+# command for open typeracer
         elif "open typing race" in query:
             print("Sir her is your result")
             speak("Sir her is your result")
             webbrowser.open_new('https://play.typeracer.com/')
-
+           
+# command for open vs code
         elif "open code" in query:
             print("Sir her is your result")
             speak("Sir her is your result")
             codepath = "C:\\Users\\MUHSIN\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(codepath)
-
+            
+# command for open you tube
         elif 'open youtube' in query:
             print("Sir her is your result")
             speak("Sir her is your result")
             webbrowser.open_new('https://www.youtube.com/feed/library')
-
+            
+# command for open nox player
         elif 'open nox' in query:
             print("Sir her is your result")
             speak("Sir her is your result")
             noxpath = "C:\\Program Files (x86)\\Nox\\bin\\MultiPlayerManager.exe"
             os.startfile(noxpath)
+            
+        # command for play songs
+        elif 'play song' in query:
+            print("Sir her is your result")
+            speak("Sir her is your result")
+            music_dir + 'C:\\Users\\MUHSIN\\Music\\songs
+            songs = os.listdir(music_dir)
+            print(songs)
+            os.startfile(os.path.join(music_dir, song[0]))
 
+# command for open github
         elif 'open github' in query:
             print("Sir her is your result")
             speak("Sir her is your result")
